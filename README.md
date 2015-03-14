@@ -49,13 +49,13 @@ Note: if fields list is empty sortby will work as a faster version of unix sort 
 
 ## benchmarks
 
-Sorting of 1,000,000 millions lines text files. Each line has about 70 characters
+Sorting of 1,000,000 lines text files. Each line has about 70 characters
 
 * **sortby**: 6.251s
 * unix **sort**: 31.337s
 * **5x** times performance improvemnt
 
-Finding unique lines in 1,000,000 unordered text file. Each line has 16 characters. 330,000 unique lines
+Finding unique lines in 1,000,000 lines text file. Each line has 16 characters. 330,000 unique lines total
 
 * **uniq2**: 3.949s
 * unix **sort+uniq**: 20.354s
