@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void usage() {
+void help() {
     cout << 
         "sortby is fast implementation of in-memory text file sorting with\n"
         "ability to specify columns as a key for sort operation\n"
@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
     for (int i=1; i<argc; ++i) {
         const char* arg = argv[i];
         if (strstr(arg, "-h") == arg || strstr(arg, "--h") == arg) {
-            usage();
+            help();
             return 1;
         }
         else if (strstr(arg, "-u") == arg)

@@ -30,18 +30,19 @@ const char* operations[] = {
     "symmetric_difference"
 };
 
-void usage() {
-    cerr << "Usage: setops [operation] <[file1] 3<[file2]" << endl;
-    cerr << "Available operations:" << endl;
+void help() {
+    cout << "setops provides set operations for text files" << endl;
+    cout << "Usage: setops [operation] <[file1] 3<[file2]" << endl;
+    cout << "Available operations:" << endl;
     for (int i=0; i<4; ++i)
-        cerr << "  " << operations[i] << endl;
-    cerr << "You can use short prefix to specify operation like 'u' for 'union'." << endl;
+        cout << "  " << operations[i] << endl;
+    cout << "You can use short prefix to specify operation like 'u' for 'union'." << endl;
 }
 
 int main(int argc, char** argv) {
 
     if (argc != 2) {
-        usage();
+        help();
         return 1;
     }
 

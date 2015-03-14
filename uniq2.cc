@@ -13,6 +13,15 @@ struct compare_t {
 };
 
 int main(int argc, char** argv) {
+    if (argc > 1) {
+        cout << 
+            "uniq2 filters out repeated lines in an input stream.\n"
+            "Unlike unix uniq it can detect non-adjucent repeated lines i.e. there is no need to sort the lines first.\n"
+            "As a bonus uniq2 prints lines in lexicographic order (byte representation is used for unicode characters).\n"
+            "If you provide optional '-c' argument uniq2 will output number of occurances for each repeated line.\n";
+        return 1;
+    }
+
     typedef map<const char*, size_t, compare_t> rows_t;
     rows_t rows;
     stream_t stream(cin);
