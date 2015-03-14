@@ -32,7 +32,8 @@ const char* stream_t::next() {
 
 void stream_t::undo(const char* p) {
     assert(last == p);
-    if (p < chunkBuffer && p >= chunkBuffer - (chunkSize - chunkRemain)) {
+    // allocated element size is always >=1 bytes to hold zero terminator 
+    if (p < chunkBuffer && p >= chunkBuffer + chunkRemain - chunkSize)) {
         chunkRemain += chunkBuffer - p;
         chunkBuffer -= chunkBuffer - p;
     }
