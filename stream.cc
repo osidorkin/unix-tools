@@ -10,19 +10,20 @@ stream_t::stream_t(istream& i) : in(i), chunkBuffer(0), chunkRemain(0) {}
 const char* stream_t::next() {
     char* p = 0;
     if (getline(in, tmp)) {
-        if (chunkRemain <= tmp.size() && tmp.size() < chunkSize) {
+        size_t size = tmp.size();
+        if (chunkRemain <= size && size < chunkSize) {
             chunkBuffer = new char[chunkSize];
             chunkRemain = chunkSize;
         }
-        if (chunkRemain > tmp.size()) {
+        if (chunkRemain > size) {
             p = chunkBuffer;
-            chunkRemain -= tmp.size() + 1;
-            chunkBuffer += tmp.size() + 1;
+            chunkRemain -= size + 1;
+            chunkBuffer += size + 1;
         }
         else
-            p = new char[tmp.size() + 1];
-        memcpy(p, tmp.data(), tmp.size());
-        p[tmp.size()] = 0;
+            p = new char[size + 1];
+        memcpy(p, tmp.data(), size);
+        p[size] = 0;
     }
     return p;
 }

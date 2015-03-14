@@ -10,4 +10,7 @@ struct stream_t {
 
 	stream_t(std::istream&);
 	const char* next();
+
+	// stream_t memory model is chunked append-only stack in heap 
+	// stream_t output lifetime is expected to be equal to program lifetime so no memory deallocation provided
 };
