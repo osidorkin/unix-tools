@@ -51,14 +51,16 @@ int main(int argc, char** argv) {
     rows_t ss1;
     stream_t in1(cin);
     while (const char* p = in1.next())
-        ss1.insert(p);
+        if (!ss1.insert(p).second)
+            in1.undo(p);
 
     rows_t ss2;
     __gnu_cxx::stdio_filebuf<char> filebuf(3, ios::in);
     istream cin3(&filebuf);
     stream_t in2(cin3);
     while (const char* p = in2.next())
-        ss2.insert(p);
+        if (!ss2.insert(p).second)
+            in2.undo(p);
 
     typedef rows_t::const_iterator I;
     typedef ostream_iterator<const char*> O;

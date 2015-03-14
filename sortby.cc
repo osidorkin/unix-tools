@@ -125,8 +125,13 @@ int main(int argc, char** argv) {
     if (unique && count) {
         typedef map<const char*, size_t, compare_t> rows_t;
         rows_t rows(compare);
-        while (const char* p = stream.next())
-            rows[p]++;
+        while (const char* p = stream.next()) {
+            pair<rows_t::iterator, bool> r = rows.insert(make_pair(p,1));
+            if (!r.second) {
+                ++r.first->second;
+                stream.undo(p);
+            }
+        }
         for (rows_t::const_iterator i=rows.begin(), e=rows.end(); i!=e; ++i) {
             if (swap)
                 cout << i->first << '\t' << i->second << endl;
@@ -138,7 +143,8 @@ int main(int argc, char** argv) {
         typedef set<const char*, compare_t> rows_t;
         rows_t rows(compare);
         while (const char* p = stream.next())
-            rows.insert(p);
+            if (!rows.insert(p).second)
+                stream.undo(p);
         for (rows_t::const_iterator i=rows.begin(), e=rows.end(); i!=e; ++i)
             puts(*i);
     }

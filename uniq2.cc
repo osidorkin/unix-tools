@@ -29,7 +29,7 @@ int main(int argc, char** argv) {
         const char* arg = argv[i];
         if (strstr(arg, "-h") == arg || strstr(arg, "--h") == arg) {
             help();
-            return 1;           
+            return 1;
         }
         if (strcmp(arg, "-c") == 0)
             count = true;
@@ -44,8 +44,13 @@ int main(int argc, char** argv) {
     typedef map<const char*, size_t, compare_t> rows_t;
     rows_t rows;
     stream_t stream(cin);
-    while (const char* p = stream.next())
-        ++rows[p];
+    while (const char* p = stream.next()) {
+        pair<rows_t::iterator, bool> r = rows.insert(make_pair(p,1));
+        if (!r.second) {
+            ++r.first->second;
+            stream.undo(p);
+        }
+    }
 
     for (rows_t::const_iterator i = rows.begin(), e=rows.end(); i!=e; ++i) {
         if (count && !swap)
