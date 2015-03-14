@@ -1,4 +1,4 @@
-tools=uniq2 setops
+tools=uniq2 setops sortby
 
 all: $(tools)
 
