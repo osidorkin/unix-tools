@@ -5,11 +5,18 @@
 #include <algorithm>
 #include <iterator>
 #include <ext/stdio_filebuf.h>
+#include "stream.h"
 
 using namespace std;
 
-template <class T, class F>
-void run(const set<T>& ss1, const set<T>& ss2, F algorithm) {
+struct compare_t {
+    bool operator()(const char* p, const char* q) const {
+        return strcmp(p,q) < 0;
+    }
+};
+
+template <class T, class C, class F>
+void run(const set<T,C>& ss1, const set<T,C>& ss2, F algorithm) {
     algorithm(
         ss1.begin(), ss1.end(),
         ss2.begin(), ss2.end(),
@@ -38,20 +45,22 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    string s;
-    set<string> ss1;
-    while (getline(cin,s))
-        ss1.insert(s);
+    typedef set<const char*, compare_t> rows_t;
 
+    rows_t ss1;
+    stream_t in1(cin);
+    while (const char* p = in1.next())
+        ss1.insert(p);
+
+    rows_t ss2;
     __gnu_cxx::stdio_filebuf<char> filebuf(3, std::ios::in);
-    istream in2(&filebuf);
+    istream cin3(&filebuf);
+    stream_t in2(cin3);
+    while (const char* p = in2.next())
+        ss2.insert(p);
 
-    set<string> ss2;
-    while (getline(in2,s))
-        ss2.insert(s);
-
-    typedef set<string>::const_iterator I;
-    typedef ostream_iterator<string> O;
+    typedef rows_t::const_iterator I;
+    typedef ostream_iterator<const char*> O;
 
     for (int i=0; i<4; ++i) {
         if (strstr(operations[i], argv[1]) == operations[i]) {

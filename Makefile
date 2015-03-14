@@ -1,13 +1,20 @@
-tools=uniq2 setops sortby
+TOOLS=uniq2 setops sortby
 
-all: $(tools)
+CC=g++
+
+all: $(TOOLS)
+
+stream.cc: stream.h
+
+$(TOOLS): stream.cc
 
 %: %.cc
-	g++ -O3 $< -o $@
+	$(CC) -O3 $< stream.cc -o $@
 	chmod +x $@
 
 clean:
-	rm -f $(tools)
+	rm -f $(TOOLS)
 
 install:
-	cp $(tools) ~/bin
+	mkdir -p ~/bin
+	cp $(TOOLS) ~/bin

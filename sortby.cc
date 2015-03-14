@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <iterator>
 #include <memory.h>
+#include "stream.h"
 
 using namespace std;
 
@@ -69,33 +70,6 @@ struct compare_t {
     }
 };
 
-struct stream_t {
-    static const size_t chunkSize = 1024*1024;
-    char* chunkBuffer;
-    size_t chunkRemain;
-    string s;
-    stream_t() : chunkBuffer(0), chunkRemain(0) {}
-    const char* next() {
-        char* p = 0;
-        if (getline(cin, s)) {
-            if (chunkRemain <= s.size() && s.size() < chunkSize) {
-                chunkBuffer = new char[chunkSize];
-                chunkRemain = chunkSize;
-            }
-            if (chunkRemain > s.size()) {
-                p = chunkBuffer;
-                chunkRemain -= s.size() + 1;
-                chunkBuffer += s.size() + 1;
-            }
-            else
-                p = new char[s.size() + 1];
-            memcpy(p, s.data(), s.size());
-            p[s.size()] = 0;
-        }
-        return p;
-    }
-};
-
 int main(int argc, char** argv) {
 
     compare_t compare;
@@ -127,7 +101,7 @@ int main(int argc, char** argv) {
             return 1;
         }
     }
-    stream_t stream;
+    stream_t stream(cin);
     if (unique && count) {
         typedef map<const char*, size_t, compare_t> rows_t;
         rows_t rows(compare);
