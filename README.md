@@ -30,21 +30,21 @@ You can use short prefix to specify operation like 'u' for 'union'.
 
 ## sortby
 <pre>
-sortby is fast implementation of in-memory text file sorting with
-ability to specify columns as a key for sort operation
-sortby reads data from standard input and writes data to standard output
-arguments:
-  -d[delimiter] - (optional)column delimiter string
-  -f[fields] - (optional)fields is command separated list of column 1-based numbers to use as a sorting key
-               to interpret column text as an integer add 'i' suffix after column number
-  -u - (optional) leave only first occurance for lines with same key
-  -c - (optional) in combination with -u will print number of lines with the same key
+sortby is fast implementation of in-memory text file sorting with ability to specify columns as a key for sort operation
+sortby reads data from standard input and writes data to standard output.
+Arguments:
+  -d delim - Delimiter to use to separate fields in source stream.
+  -f list - Defines combination of fields to be used as a a sorting key.
+             Your can use 'i' suffix to interpret field value as in integer.
+  -u - Leave only first occurance for lines with same key.
+  -c - In combination with -u print number of lines with the same key.
+  -s - Swap number of lines and line text in -c mode.
 
-example: cat example.txt | sortby -d\| -f3,1i
-   will sort lines from pipe ('|') delimited file example.txt using combination of third
-   and fisrt columns as a sorting key. first column value will be interpreted as an integer
+Example: cat example.txt | sortby -d\| -f3,1i
+   Will sort lines from pipe ('|') delimited file example.txt using combination of third
+   and fisrt columns as a sorting key. first column value will be interpreted as an integer.
 
-note: if fields list is empty sortby will work as a faster version of unix sort utility
+Note: if fields list is empty sortby will work as a faster version of unix sort utility.
 </pre>
 
 ## benchmarks
