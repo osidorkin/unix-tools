@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
         ss1.insert(p);
 
     rows_t ss2;
-    __gnu_cxx::stdio_filebuf<char> filebuf(3, std::ios::in);
+    __gnu_cxx::stdio_filebuf<char> filebuf(3, ios::in);
     istream cin3(&filebuf);
     stream_t in2(cin3);
     while (const char* p = in2.next())

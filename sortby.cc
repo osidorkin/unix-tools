@@ -42,7 +42,7 @@ inline const char* advance(const char* p, int n, const char* d, size_t l, size_t
 }
 
 struct compare_t {
-    std::string delimiter;
+    string delimiter;
     typedef vector< pair<int,int> > fields_t;
     fields_t fields;
     bool operator()(const char* p, const char* q) const {

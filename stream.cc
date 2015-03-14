@@ -1,10 +1,11 @@
 #include "stream.h"
 #include <memory.h>
 
-stream_t::stream_t(std::istream& i) : in(i), chunkBuffer(0), chunkRemain(0) {}
+using namespace std;
+
+stream_t::stream_t(istream& i) : in(i), chunkBuffer(0), chunkRemain(0) {}
 
 const char* stream_t::next() {
-    using namespace std;
     char* p = 0;
     if (getline(in, s)) {
         if (chunkRemain <= s.size() && s.size() < chunkSize) {
