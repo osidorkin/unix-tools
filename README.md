@@ -23,7 +23,8 @@ Available operations:
   difference
   intersection
   symmetric_difference
-You can use short prefix to specify operation like 'u' for 'union'.</pre>
+You can use short prefix to specify operation like 'u' for 'union'.
+</pre>
 
 ## sortby
 <pre>
@@ -31,8 +32,8 @@ sortby is fast implementation of in-memory text file sorting with
 ability to specify columns as a key for sort operation
 sortby reads data from standard input and writes data to standard output
 arguments:
-  -d<delimiter> - column delimiter string
-  -f<fields> - fields is command separated list of column 1-based numbers to use as a sorting key
+  -d[delimiter] - (optional)column delimiter string
+  -f[fields] - (optional)fields is command separated list of column 1-based numbers to use as a sorting key
                to interpret column text as an integer add 'i' suffix after column number
   -u - (optional) leave only first occurance for lines with same key
   -c - (optional) in combination with -u will print number of lines with the same key
@@ -42,9 +43,6 @@ example: cat example.txt | sortby -d\| -f3,1i
    and fisrt columns as a sorting key. first column value will be interpreted as an integer
 
 note: if fields list is empty sortby will work as a faster version of unix sort utility
-sortby is fast implementation of in-memory text file sorting with
-ability to specify columns as a key for sort operation.
-sortby reads data from standard input and writes data to standard output
 </pre>
 
 ## benchmarks
