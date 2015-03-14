@@ -11,7 +11,9 @@ Set of command line unix tools I created to speedup and simplify day-to-day work
 uniq2 filters out repeated lines in an input stream.
 Unlike unix uniq it can detect non-adjucent repeated lines i.e. there is no need to sort the lines first.
 As a bonus uniq2 prints lines in lexicographic order (byte representation is used for unicode characters).
-If you provide optional '-c' argument uniq2 will output number of occurances for each repeated line.
+Arguments:
+  -c - (optional) output number of occurances for each repeated line.
+  -s - (optional) swap number of occurances and line text in -c mode.
 </pre>
 
 ## setops
