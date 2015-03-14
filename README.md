@@ -17,7 +17,7 @@ If you provide optional '-c' argument uniq2 will output number of occurances for
 ## setops
 <pre>
 setops provides set operations for text files
-Usage: setops [operation] <[file1] 3<[file2]
+Usage: setops [operation] &lt;[file1] 3&lt;[file2]
 Available operations:
   union
   difference
