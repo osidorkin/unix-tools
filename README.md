@@ -1,6 +1,6 @@
 # unix-tools
 
-Set of command line unix tools I created to speedup and simplify day-to-day work with data files. These tools provides unique missing features in standard unix tools like finding unique lines in unordered text stream, sorting by combination of columns, set-style operations on two text streams like union or intersection as well as X times performance improvement. Implementation heavily uses STL C++ containers like std::set and std::map.
+Set of command line unix tools I created to speedup and simplify day-to-day work with data files. These tools provides missing features in standard unix tools like finding unique lines in unordered text stream, sorting by combination of columns, set-style operations on two text streams like union or intersection as well as significant performance improvement. Implementation heavily uses STL C++ containers like std::set and std::map.
 
 * **uniq2**: uniq implementation which can work on unordered stream
 * **setops**: set operations: union, difference, intersection, symmetric_difference
