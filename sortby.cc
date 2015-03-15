@@ -139,7 +139,7 @@ int main(int argc, char** argv) {
                 cout << i->second << '\t' << i->first << endl;
         }
     }
-    if (unique) {
+    else if (unique) {
         typedef set<const char*, compare_t> rows_t;
         rows_t rows(compare);
         while (const char* p = stream.next())
