@@ -56,7 +56,7 @@ int main(int argc, char** argv) {
         if (count && !swap)
             cout << i->second << '\t';
         cout << i->first;
-        if (cout && swap)
+        if (count && swap)
             cout << '\t' << i->second;
         cout << endl;
     }
