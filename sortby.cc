@@ -29,7 +29,7 @@ void help() {
 }
 
 inline const char* advance(const char* p, int n, const char* d, size_t l, size_t* s) {
-    while (p && n-->0) {
+    while (p && n-- > 0) {
         p = strstr(p, d);
         if (p)
             p += l;
@@ -70,18 +70,65 @@ struct compare_t {
     }
 };
 
-int main(int argc, char** argv) {
-
+struct settings_t {
     compare_t compare;
-    bool unique = false;
-    bool count = false;
-    bool swap = false;
+    bool unique;
+    bool count;
+    bool swap;
+    settings_t() : unique(false), count(false), swap(false) {}
+    
+    bool setup(int argc, char** argv);
+};
 
+int main(int argc, char** argv) {
+    settings_t settings;
+    if (!settings.setup(argc, argv))
+        return 1;
+
+    stream_t stream(cin);
+    if (settings.unique && settings.count) {
+        typedef map<const char*, size_t, compare_t> rows_t;
+        rows_t rows(settings.compare);
+        while (const char* p = stream.next()) {
+            pair<rows_t::iterator, bool> r = rows.insert(make_pair(p,1));
+            if (!r.second) {
+                ++r.first->second;
+                stream.undo(p);
+            }
+        }
+        for (rows_t::const_iterator i=rows.begin(), e=rows.end(); i!=e; ++i) {
+            if (settings.swap)
+                cout << i->first << '\t' << i->second << endl;
+            else
+                cout << i->second << '\t' << i->first << endl;
+        }
+    }
+    else if (settings.unique) {
+        typedef set<const char*, compare_t> rows_t;
+        rows_t rows(settings.compare);
+        while (const char* p = stream.next())
+            if (!rows.insert(p).second)
+                stream.undo(p);
+        for (rows_t::const_iterator i=rows.begin(), e=rows.end(); i!=e; ++i)
+            puts(*i);
+    }
+    else {
+        typedef multiset<const char*, compare_t> rows_t;
+        rows_t rows(settings.compare);
+        while (const char* p = stream.next())
+            rows.insert(p);
+        for (rows_t::const_iterator i=rows.begin(), e=rows.end(); i!=e; ++i)
+            puts(*i);
+    }
+    return 0;
+}
+
+bool settings_t::setup(int argc, char** argv) {
     for (int i=1; i<argc; ++i) {
         const char* arg = argv[i];
         if (strstr(arg, "-h") == arg || strstr(arg, "--h") == arg) {
             help();
-            return 1;
+            return false;
         }
         else if (strcmp(arg, "-u") == 0)
             unique = true;
@@ -118,43 +165,8 @@ int main(int argc, char** argv) {
         }
         else {
             cerr << "unknown argument " << arg << endl;
-            return 1;
+            return false;
         }
     }
-    stream_t stream(cin);
-    if (unique && count) {
-        typedef map<const char*, size_t, compare_t> rows_t;
-        rows_t rows(compare);
-        while (const char* p = stream.next()) {
-            pair<rows_t::iterator, bool> r = rows.insert(make_pair(p,1));
-            if (!r.second) {
-                ++r.first->second;
-                stream.undo(p);
-            }
-        }
-        for (rows_t::const_iterator i=rows.begin(), e=rows.end(); i!=e; ++i) {
-            if (swap)
-                cout << i->first << '\t' << i->second << endl;
-            else
-                cout << i->second << '\t' << i->first << endl;
-        }
-    }
-    else if (unique) {
-        typedef set<const char*, compare_t> rows_t;
-        rows_t rows(compare);
-        while (const char* p = stream.next())
-            if (!rows.insert(p).second)
-                stream.undo(p);
-        for (rows_t::const_iterator i=rows.begin(), e=rows.end(); i!=e; ++i)
-            puts(*i);
-    }
-    else {
-        typedef multiset<const char*, compare_t> rows_t;
-        rows_t rows(compare);
-        while (const char* p = stream.next())
-            rows.insert(p);
-        for (rows_t::const_iterator i=rows.begin(), e=rows.end(); i!=e; ++i)
-            puts(*i);
-    }
-    return 0;
+    return true;
 }
