@@ -76,7 +76,7 @@ struct settings_t {
     bool count;
     bool swap;
     settings_t() : unique(false), count(false), swap(false) {}
-    
+
     bool setup(int argc, char** argv);
 };
 
@@ -110,7 +110,7 @@ int main(int argc, char** argv) {
             if (!rows.insert(p).second)
                 stream.undo(p);
         for (rows_t::const_iterator i=rows.begin(), e=rows.end(); i!=e; ++i)
-            puts(*i);
+            cout << *i << endl;
     }
     else {
         typedef multiset<const char*, compare_t> rows_t;
@@ -118,7 +118,7 @@ int main(int argc, char** argv) {
         while (const char* p = stream.next())
             rows.insert(p);
         for (rows_t::const_iterator i=rows.begin(), e=rows.end(); i!=e; ++i)
-            puts(*i);
+            cout << *i << endl;
     }
     return 0;
 }
