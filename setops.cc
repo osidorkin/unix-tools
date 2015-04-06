@@ -20,7 +20,8 @@ void run(const set<T,C>& ss1, const set<T,C>& ss2, F algorithm) {
     algorithm(
         ss1.begin(), ss1.end(),
         ss2.begin(), ss2.end(),
-        ostream_iterator<T>(cout, "\n"));
+        ostream_iterator<T>(cout, "\n"),
+        compare_t());
 }
 
 const char* operations[] = {
@@ -65,13 +66,14 @@ int main(int argc, char** argv) {
     typedef rows_t::const_iterator I;
     typedef ostream_iterator<const char*> O;
 
+    typedef compare_t C;
     for (int i=0; i<4; ++i) {
         if (strstr(operations[i], argv[1]) == operations[i]) {
             switch (i) {
-                case 0: run(ss1, ss2, set_union<I,I,O>); return 0;
-                case 1: run(ss1, ss2, set_difference<I,I,O>); return 0;
-                case 2: run(ss1, ss2, set_intersection<I,I,O>); return 0;
-                case 3: run(ss1, ss2, set_symmetric_difference<I,I,O>); return 0;
+                case 0: run(ss1, ss2, set_union<I,I,O,C>); return 0;
+                case 1: run(ss1, ss2, set_difference<I,I,O,C>); return 0;
+                case 2: run(ss1, ss2, set_intersection<I,I,O,C>); return 0;
+                case 3: run(ss1, ss2, set_symmetric_difference<I,I,O,C>); return 0;
             }
         }
     }
